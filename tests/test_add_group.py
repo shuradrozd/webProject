@@ -1,7 +1,7 @@
 import pytest
 
-from application import Application
-from group import Group
+from fixtures.application import Application
+from models.group import Group
 
 
 @pytest.fixture
