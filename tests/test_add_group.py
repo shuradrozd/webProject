@@ -12,6 +12,6 @@ def app(request):
 
 
 def test_add_group(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.add_new_group(Group(name="test1"))
-    app.logout()
+    app.session.logout()
