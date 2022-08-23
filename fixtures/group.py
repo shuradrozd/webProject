@@ -20,3 +20,15 @@ class Group:
         driver.find_element(By.XPATH, "//span[1]/input").click()
         driver.find_element(By.NAME, "delete").click()
         driver.find_element(By.LINK_TEXT, "groups").click()
+
+    def modify_first_group(self, group):
+        driver = self.app.driver
+        driver.find_element(By.LINK_TEXT, "groups").click()
+        if group.name is not None:
+            driver.find_element(By.XPATH, "//span[1]/input").click()
+            driver.find_element(By.XPATH, "(//input[@name='edit'])[1]").click()
+            driver.find_element(By.NAME, "group_name").click()
+            driver.find_element(By.NAME, "group_name").clear()
+            driver.find_element(By.NAME, "group_name").send_keys(group.name)
+            driver.find_element(By.NAME, "update").click()
+            driver.find_element(By.LINK_TEXT, "groups").click()
