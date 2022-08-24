@@ -8,7 +8,7 @@ class Application:
     def __init__(self):
         self.driver = webdriver.Firefox()
         self.driver.maximize_window()
-        self.driver.implicitly_wait(2)
+        self.driver.implicitly_wait(1)
         self.session = Session(self)
         self.group = Group(self)
 
