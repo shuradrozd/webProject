@@ -32,3 +32,8 @@ class Group:
             driver.find_element(By.NAME, "group_name").send_keys(group.name)
             driver.find_element(By.NAME, "update").click()
             driver.find_element(By.LINK_TEXT, "groups").click()
+
+    def count(self):
+        driver = self.app.driver
+        driver.find_element(By.LINK_TEXT, "groups").click()
+        return len(driver.find_elements(By.XPATH, "//input[@type='checkbox']"))
