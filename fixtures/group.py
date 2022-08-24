@@ -25,19 +25,28 @@ class GroupHelper:
         driver.find_element(By.LINK_TEXT, "groups").click()
 
     def delete_first_group(self):
+        self.delete_group_by_index(0)
+
+    def delete_group_by_index(self, index):
         driver = self.app.driver
         self.open_group_page()
-        driver.find_element(By.XPATH, "//span[1]/input").click()
+        elem = "//span[{}]/input".format(index + 1)
+        driver.find_element(By.XPATH, elem).click()
         driver.find_element(By.NAME, "delete").click()
         self.open_group_page()
         self.group_cache = None
 
     def modify_first_group(self, group):
+        self.modify_group_by_index(group, 0)
+
+    def modify_group_by_index(self, group, index):
         driver = self.app.driver
         self.open_group_page()
         if group.name is not None:
-            driver.find_element(By.XPATH, "//span[1]/input").click()
-            driver.find_element(By.XPATH, "(//input[@name='edit'])[1]").click()
+            elem = "//span[{}]/input".format(index + 1)
+            input_elem = "(//input[@name='edit'])[{}]".format(index + 1)
+            driver.find_element(By.XPATH, elem).click()
+            driver.find_element(By.XPATH, input_elem).click()
             driver.find_element(By.NAME, "group_name").click()
             driver.find_element(By.NAME, "group_name").clear()
             driver.find_element(By.NAME, "group_name").send_keys(group.name)
