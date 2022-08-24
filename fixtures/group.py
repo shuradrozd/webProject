@@ -44,9 +44,8 @@ class GroupHelper:
         self.open_group_page()
         if group.name is not None:
             elem = "//span[{}]/input".format(index + 1)
-            input_elem = "(//input[@name='edit'])[{}]".format(index + 1)
             driver.find_element(By.XPATH, elem).click()
-            driver.find_element(By.XPATH, input_elem).click()
+            driver.find_element(By.XPATH, "(//input[@name='edit'])[1]").click()
             driver.find_element(By.NAME, "group_name").click()
             driver.find_element(By.NAME, "group_name").clear()
             driver.find_element(By.NAME, "group_name").send_keys(group.name)
