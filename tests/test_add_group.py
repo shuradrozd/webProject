@@ -3,7 +3,11 @@ from models.group import Group
 
 def test_add_group(app):
     old_groups = app.groupHelper.get_group_list()
-    app.groupHelper.add_new_group(Group(name="test1"))
-    new_groups = app.groupHelper.get_group_list()
+    group = Group(name="test1")
+    app.groupHelper.add_new_group(group)
 
-    assert len(new_groups) - 1 == len(old_groups)
+    assert len(old_groups) + 1 == app.groupHelper.count()
+    new_groups = app.groupHelper.get_group_list()
+    old_groups.append(group)
+
+    assert sorted(new_groups, key=Group.id_or_max) == sorted(old_groups, key=Group.id_or_max)

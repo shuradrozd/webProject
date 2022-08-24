@@ -15,6 +15,7 @@ class GroupHelper:
         driver.find_element(By.NAME, "group_name").send_keys(group.name)
         driver.find_element(By.NAME, "submit").click()
         self.open_group_page()
+        self.group_cache = None
 
     def open_group_page(self):
         driver = self.app.driver
@@ -29,6 +30,7 @@ class GroupHelper:
         driver.find_element(By.XPATH, "//span[1]/input").click()
         driver.find_element(By.NAME, "delete").click()
         self.open_group_page()
+        self.group_cache = None
 
     def modify_first_group(self, group):
         driver = self.app.driver
@@ -41,18 +43,22 @@ class GroupHelper:
             driver.find_element(By.NAME, "group_name").send_keys(group.name)
             driver.find_element(By.NAME, "update").click()
             self.open_group_page()
+        self.group_cache = None
 
     def count(self):
         driver = self.app.driver
         self.open_group_page()
         return len(driver.find_elements(By.XPATH, "//input[@type='checkbox']"))
 
+    group_cache = None
+
     def get_group_list(self):
-        driver = self.app.driver
-        self.open_group_page()
-        groups = []
-        for element in driver.find_elements(By.XPATH, "//span[@class='group']"):
-            text = element.text
-            ident = element.find_element(By.NAME, 'selected[]').get_attribute("value")
-            groups.append(Group(name=text, id=ident))
-        return groups
+        if self.group_cache is None:
+            driver = self.app.driver
+            self.open_group_page()
+            self.group_cache = []
+            for element in driver.find_elements(By.XPATH, "//span[@class='group']"):
+                text = element.text
+                ident = element.find_element(By.NAME, 'selected[]').get_attribute("value")
+                self.group_cache.append(Group(name=text, id=ident))
+        return list(self.group_cache)
