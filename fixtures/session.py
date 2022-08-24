@@ -33,7 +33,7 @@ class Session:
 
     def get_logged_user(self):
         driver = self.app.driver
-        return driver.find_element_by_xpath('//b[normalize-space()="(admin)"]').text[1:-1]
+        return driver.find_element(By.XPATH, '//b[normalize-space()="(admin)"]').text[1:-1]
 
     def ensure_login(self, username, password):
         if self.is_logged_in():
