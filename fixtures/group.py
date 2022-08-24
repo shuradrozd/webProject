@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
+from models.group import Group
 
-class Group:
+
+class GroupHelper:
     def __init__(self, app):
         self.app = app
 
@@ -44,3 +46,13 @@ class Group:
         driver = self.app.driver
         self.open_group_page()
         return len(driver.find_elements(By.XPATH, "//input[@type='checkbox']"))
+
+    def get_group_list(self):
+        driver = self.app.driver
+        self.open_group_page()
+        groups = []
+        for element in driver.find_elements(By.XPATH, "//span[@class='group']"):
+            text = element.text
+            ident = element.find_element(By.NAME, 'selected[]').get_attribute("value")
+            groups.append(Group(name=text, id=ident))
+        return groups

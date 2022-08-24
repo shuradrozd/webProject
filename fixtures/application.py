@@ -1,6 +1,6 @@
 from selenium import webdriver
 
-from fixtures.group import Group
+from fixtures.group import GroupHelper
 from fixtures.session import Session
 
 
@@ -8,9 +8,9 @@ class Application:
     def __init__(self):
         self.driver = webdriver.Firefox()
         self.driver.maximize_window()
-        self.driver.implicitly_wait(1)
+        # self.driver.implicitly_wait(1)
         self.session = Session(self)
-        self.group = Group(self)
+        self.groupHelper = GroupHelper(self)
 
     def is_valid(self):
         try:
