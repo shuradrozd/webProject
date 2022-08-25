@@ -3,7 +3,7 @@ from sys import maxsize
 
 class Contact:
     def __init__(self, firstname=None, lastname=None, id=None, homephone=None, mobilephone=None, workphone=None,
-                 secondaryphone=None):
+                 secondaryphone=None, all_phones_from_home_page= None):
         self.firstname = firstname
         self.lastname = lastname
         self.id = id
@@ -11,6 +11,7 @@ class Contact:
         self.mobilephone = mobilephone
         self.workphone = workphone
         self.secondaryphone = secondaryphone
+        self.all_phones_from_home_page = all_phones_from_home_page
 
     def __repr__(self):
         return "% % %" % (self.id, self.firstname, self.lastname)
