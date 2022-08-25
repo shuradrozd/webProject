@@ -1,3 +1,5 @@
+import re
+
 from selenium.webdriver.common.by import By
 
 from models.contact import Contact
@@ -31,6 +33,16 @@ class ContactHelper:
                                                   homephone=all_phones[0], mobilephone=all_phones[1],
                                                   workphone=all_phones[2], secondaryphone=all_phones[3]))
             return list(self.contact_cache)
+
+    def get_contact_from_view_page(self, index):
+        driver = self.app.driver
+        self.open_contact_view_by_index(index)
+        text = driver.find_element(By.ID, "content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone)
 
     def open_home_page(self):
         driver = self.app.driver
