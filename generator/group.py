@@ -1,9 +1,10 @@
 import getopt
-import json
 import os.path
 import random
 import string
 import sys
+
+import jsonpickle
 
 from models.group import Group
 
@@ -33,4 +34,5 @@ test_data = [Group(name="")] + [Group(name=random_string("name", 10))
                                 ]
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 with open(file, "w") as out:
-    out.write(json.dumps(test_data, default=lambda x: x.__dict__, indent=2))
+    jsonpickle.set_encoder_options("json", indent=2)
+    out.write(jsonpickle.encode(test_data))
