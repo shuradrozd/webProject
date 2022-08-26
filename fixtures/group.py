@@ -36,6 +36,20 @@ class GroupHelper:
         self.open_group_page()
         self.group_cache = None
 
+    def delete_group_by_id(self, id):
+        driver = self.app.driver
+        self.open_group_page()
+        self.select_group_by_id(id)
+        # elem = "//span[{}]/input".format(id)
+        # driver.find_element(By.XPATH, elem).click()
+        driver.find_element(By.NAME, "delete").click()
+        self.open_group_page()
+        self.group_cache = None
+
+    def select_group_by_id(self, id):
+        driver = self.app.driver
+        driver.find_element(By.CSS_SELECTOR, "input[value='%s']" % id).click()
+
     def modify_first_group(self, group):
         self.modify_group_by_index(group, 0)
 
