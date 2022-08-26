@@ -2,7 +2,7 @@ from sys import maxsize
 
 
 class Group:
-    def __init__(self, name, id=None):
+    def __init__(self, id=None, name=""):
         self.name = name
         self.id = id
 
